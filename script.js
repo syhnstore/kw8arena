@@ -73,13 +73,13 @@ el('btnSave').addEventListener('click', function(){
   <b>GANTANGAN:</b> ${d.gantangan}<br>
   <b>SESI:</b> ${d.sesi}<br><br>
 
-  <b>MERAH:</b> ${d.totalMerah}<br>
-  <b>BIRU:</b> ${d.totalBiru}<br>
-  <b>KUNING:</b> ${d.totalKuning}<br><br>
+  <b style="color: #fd6060;">MERAH:</b> ${d.totalMerah}<br>
+  <b style="color: #6097fd;">BIRU:</b> ${d.totalBiru}<br>
+  <b style="color: #fde060;">KUNING:</b> ${d.totalKuning}<br><br>
 
-  <b>SEBELUM:</b> ${d.before}<br>
-  <b>RESTART:</b> ${d.restart}<br>
-  <b>SETELAH:</b> ${d.after}
+  <b>SEBELUM RESTART:</b> ${d.before}<br>
+  <b>RESTART POINT:</b> ${d.restart}<br>
+  <b>SETELAH RESTART:</b> ${d.after}
   </div>
   `;
 }
