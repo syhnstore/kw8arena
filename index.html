@@ -12,34 +12,44 @@
 <h2>AUTO PENILAIAN</h2>
 
 <div class="card">
-<input id="gantangan" type="number" placeholder="No. Gantangan">
-<input id="sesi" type="text" value="A" placeholder="Sesi">
+    <div class="flexib">
+      <input id="gantangan" type="number" placeholder="No. Gantangan">
+      <input id="sesi" type="text" placeholder="Sesi A/B/C">
+    </div>
 
 <div class="grid">
   <div>
-    <h4>MERAH</h4>
-    <input id="inputMerah" type="number" placeholder="Point">
-    <input id="stikMerah" type="number" placeholder="Stik">
-    <input id="totalMerah" readonly placeholder="Total">
+    <h4 style="color: #fd6060;">MERAH</h4>
+     <div class="flexib" style="padding:0px;">
+      <input id="inputMerah" type="number" placeholder="Point Kocok">
+      <input id="stikMerah" type="number" placeholder="Jumlah Stik">
+      <input id="totalMerah" readonly disabled placeholder="Total Point" style="background: #fd6060;">
+     </div>
   </div>
 
   <div>
-    <h4>BIRU</h4>
-    <input id="stikBiru" type="number" placeholder="Stik">
-    <input id="totalBiru" readonly placeholder="Total">
+    <h4 style="color: #6097fd;">BIRU</h4>
+    <input disabled placeholder="40" value="40">
+    <input id="stikBiru" type="number" placeholder="Jumlah Stik">
+    <input id="totalBiru" readonly disabled placeholder="Total Point" style="background: #6097fd;">
   </div>
 
   <div>
-    <h4>KUNING</h4>
-    <input id="stikKuning" type="number" placeholder="Stik">
-    <input id="totalKuning" readonly placeholder="Total">
+    <h4 style="color: #fde060;">KUNING</h4>
+    <input disabled placeholder="10" value="10">
+    <input id="stikKuning" type="number" placeholder="Jumlah Stik">
+    <input id="totalKuning" readonly disabled placeholder="Total Point" style="background: #fde060;">
   </div>
 </div>
 
-<h4>HASIL</h4>
-<input id="before" readonly placeholder="Sebelum Restart">
-<input id="inputRestart" type="number" placeholder="Restart">
-<input id="after" readonly placeholder="Setelah Restart">
+<div class="flex">
+    <h4>HASIL POINT PESERTA</h4>
+  <div class="flexib">
+    <input id="before" readonly disabled placeholder="Jumlah Point">
+    <input id="inputRestart" type="number" placeholder="Restart Kocok">
+    <input id="after" readonly disabled placeholder="Hasil Restart">
+  </div>
+</div>
 
 <div class="btn-group">
 <button id="btnSave">SAVE</button>
