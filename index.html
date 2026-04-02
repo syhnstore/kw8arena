@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Point Gantangan</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+<h2>AUTO PENILAIAN</h2>
+
+<div class="card">
+<input id="gantangan" type="number" placeholder="No. Gantangan">
+<input id="sesi" type="text" value="A" placeholder="Sesi">
+
+<div class="grid">
+  <div>
+    <h4>MERAH</h4>
+    <input id="inputMerah" type="number" placeholder="Point">
+    <input id="stikMerah" type="number" placeholder="Stik">
+    <input id="totalMerah" readonly placeholder="Total">
+  </div>
+
+  <div>
+    <h4>BIRU</h4>
+    <input id="stikBiru" type="number" placeholder="Stik">
+    <input id="totalBiru" readonly placeholder="Total">
+  </div>
+
+  <div>
+    <h4>KUNING</h4>
+    <input id="stikKuning" type="number" placeholder="Stik">
+    <input id="totalKuning" readonly placeholder="Total">
+  </div>
+</div>
+
+<h4>HASIL</h4>
+<input id="before" readonly placeholder="Sebelum Restart">
+<input id="inputRestart" type="number" placeholder="Restart">
+<input id="after" readonly placeholder="Setelah Restart">
+
+<div class="btn-group">
+<button id="btnSave">SAVE</button>
+<button id="btnReset">RESET</button>
+</div>
+</div>
+
+<div class="card">
+<select id="dropdown">
+<option value="">Pilih Gantangan</option>
+</select>
+<div id="detail"></div>
+<div class="btn-group">
+<button id="btnDelete">HAPUS</button>
+<button id="btnClear">HAPUS SEMUA</button>
+</div>
+</div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
