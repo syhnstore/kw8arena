@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Point Gantangan</title>
+<title>KW8 ARENA DIGITAL ASSESSMENT SYSTEM</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-<h2>AUTO PENILAIAN</h2>
+<h2>DIGITAL ASSESSMENT SYSTEM</h2>
 
 <div class="card">
     <div class="flexib">
@@ -42,28 +42,42 @@
   </div>
 </div>
 
+<h4>HASIL POINT PESERTA</h4>
 <div class="flex">
-    <h4>HASIL POINT PESERTA</h4>
   <div class="flexib">
-    <input id="before" readonly disabled placeholder="Jumlah Point">
-    <input id="inputRestart" type="number" placeholder="Restart Kocok">
-    <input id="after" readonly disabled placeholder="Hasil Restart">
+    
+    <div>
+        <h4>JUMLAH POINT</h4>
+        <input id="before" readonly disabled placeholder="Jumlah Point">
+    </div>
+
+    <div>
+        <h4>RESTART KOCOK</h4>
+        <input id="inputRestart" type="number" placeholder="Restart Kocok">
+    </div>
+    
+    <div>
+        <h4>HASIL POINT</h4>
+        <input id="after" readonly disabled placeholder="Hasil Restart">
+    </div>
+
   </div>
 </div>
 
 <div class="btn-group">
-<button id="btnSave">SAVE</button>
-<button id="btnReset">RESET</button>
+<button id="btnSave">SIMPAN</button>
+<button id="btnReset">BERSIHKAN</button>
 </div>
 </div>
 
+<h2>DATA PESERTA</h2>
 <div class="card">
 <select id="dropdown">
 <option value="">Pilih Gantangan</option>
 </select>
 <div id="detail"></div>
 <div class="btn-group">
-<button id="btnDelete">HAPUS</button>
+<button id="btnDelete">HAPUS (1X)</button>
 <button id="btnClear">HAPUS SEMUA</button>
 </div>
 </div>
