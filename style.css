@@ -11,7 +11,11 @@ body{
   padding:10px;
 }
 
-h2{text-align:center;font-size:20px}
+h2{
+  text-align: center;
+  margin: 0px 0 11px;
+  font-size: 24px;
+}
 
 .card{
   background:#1e293b;
@@ -20,26 +24,41 @@ h2{text-align:center;font-size:20px}
   margin-bottom:10px;
 }
 
+.card h4{
+  width: 100%;
+  margin: 5px 0 -4px;
+  text-align: center;
+}
+
 .flex {
   display: flex;
   gap: 6px;
-  background: #020617;
-  padding: 8px;
   border-radius: 8px;
   flex-direction: column;
   margin-top: 10px;
 }
 
 .flex h4{
-    width: 100%;
-    text-align: center;
-    font-size: 14px;
-    margin: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  margin: 0;
 }
 
 .flexib{
   display: flex;
   gap: 10px;
+}
+
+.flexib div{
+  display: flex;
+  gap: 6px;
+  background: #020617;
+  padding: 8px;
+  border-radius: 8px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: stretch;
 }
 
 .grid{
@@ -70,7 +89,7 @@ h2{text-align:center;font-size:20px}
 .grid h4 {
   width: 100%;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   margin: 0;
 }
 
