@@ -37,7 +37,7 @@ function hitung(){
 el('btnSave').addEventListener('click', function(){
   let gantangan = el('gantangan').value;
   if(!gantangan){
-    alert('Isi gantangan dulu');
+    alert(('HARAP ISI BAGIAN INPUT YANG KOSONG') + '\n' + ('SEBELUM ANDA SIMPAN KE DATA PESERTA'));
     return;
   }
 
@@ -112,7 +112,7 @@ function loadDropdown(){
   list.forEach((d,i)=>{
     let opt = document.createElement('option');
     opt.value=i;
-    opt.text = `Gantangan ${d.gantangan}`;
+    opt.text = `No.Gantangan ${d.gantangan} - Sesi ${d.sesi}`;
     dd.appendChild(opt);
   });
 }
