@@ -194,7 +194,7 @@ function showToast(message, color = "#22c55e") {
   }, 2000);
 }
 
-const sound = new Audio("universfield-new-notification-017-352293.mp3");
+const sound = new Audio("https://raw.githubusercontent.com/syhnstore/kw8arena/main/assets/sound/notif.mp3");
 
 function playSuccessSound() {
   sound.currentTime = 0;
