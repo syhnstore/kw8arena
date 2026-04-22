@@ -9,49 +9,154 @@
 </head>
 
 <body>
+
+<div id="loading" class="loading">
+  <div class="loading-box">
+
+    <h3>Konfirmasi Data</h3>
+
+    <div class="invoice">
+
+      <div class="row">
+        <span>Gantangan</span>
+        <span id="loadGantangan"></span>
+      </div>
+
+      <div class="row">
+        <span>Sesi</span>
+        <span id="loadKelas"></span>
+      </div>
+
+      <div class="row">
+        <span>Merah</span>
+        <span id="loadMerah"></span>
+      </div>
+
+      <div class="row">
+        <span>Biru</span>
+        <span id="loadBiru"></span>
+      </div>
+
+      <div class="row total">
+        <span>Kuning</span>
+        <span id="loadKuning"></span>
+      </div>
+
+    </div>
+
+    <div class="loading-buttons">
+      <button id="confirmBtn" onclick="confirmSubmit()" class="btn-confirm">
+        Konfirmasi
+      </button>
+      <button id="cancelBtn" onclick="cancelSubmit()" class="btn-cancel">
+        Batal
+      </button>
+    </div>
+
+    <!-- spinner kecil -->
+    <div id="sendingSpinner" class="sending-spinner" style="display:none;"></div>
+
+  </div>
+</div>
+
 <div id="toast" class="toast">✅ Data berhasil dikirim</div>
 
-<audio id="successSound">
-  <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg">
+<audio id="successSound" preload="auto">
+  <source src="universfield-new-notification-017-352293.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
 
-  <h2 class="inputdt">Input Data</h2>
+  <h2 class="inputdt">KW8 ARENA DIGITAL ASSESSMENT</h2>
 
-  <form id="form">
-    <input type="number" id="gantangan" placeholder="Nomor Gantangan" required>
-    
-    <select id="kelas" required>
-      <option value="">Pilih Kelas</option>
-      <option>A</option>
-      <option>B</option>
-    </select>
+  <div class="main-layout">
 
-    <input type="number" id="merah" placeholder="Stick Merah" required>
-    <input type="number" id="biru" placeholder="Stick Biru" required>
-    <input type="number" id="kuning" placeholder="Stick Kuning" required>
+    <!-- LEFT: FORM -->
+    <div class="form-box">
+      <form id="form">
 
-    <button type="submit">Kirim</button>
-  </form>
+        <div class="input-group">
+          <label>Nomor Gantangan</label>
 
-  <h2 class="savedt">Data Tersimpan</h2>
+          <!-- hasil pilihan -->
+          <div id="selectedGantangan" class="selected-box" style="display:none;">
+            <span id="selectedText" style="margin-left: 6px; margin-top: -3px;"></span>
+            <button type="button" onclick="resetGantangan()" style="width: 100px; margin: 0;">Ganti</button>
+          </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>No</th>
-        <th>Kelas</th>
-        <th>Merah</th>
-        <th>Biru</th>
-        <th>Kuning</th>
-        <th>Aksi</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
+          <!-- grid angka -->
+          <div id="gantanganGrid" class="gantangan-grid"></div>
+
+          <!-- value asli -->
+          <input type="hidden" id="gantangan" required>
+        </div>
+
+        <div class="input-group">
+          <label>Sesi</label>
+
+          <!-- hasil pilihan -->
+          <div id="selectedKelas" class="selected-box" style="display:none;">
+            <span id="selectedKelasText" style="margin-left: 6px; margin-top: -3px;"></span>
+            <button type="button" onclick="resetKelas()" style="width: 100px; margin: 0;">Ganti</button>
+          </div>
+
+          <!-- grid kelas -->
+          <div id="kelasGrid" class="kelas-grid"></div>
+
+          <!-- value asli -->
+          <input type="hidden" id="kelas" required>
+        </div>
+
+        <div class="grid-3">
+          <div class="input-group">
+            <label>Stick Merah</label>
+            <input type="number" id="merah" required>
+          </div>
+
+          <div class="input-group">
+            <label>Stick Biru</label>
+            <input type="number" id="biru" required>
+          </div>
+
+          <div class="input-group">
+            <label>Stick Kuning</label>
+            <input type="number" id="kuning" required>
+          </div>
+        </div>
+
+        <button type="submit">Kirim Data</button>
+      </form>
+    </div>
+
+    <!-- RIGHT: TABLE -->
+    <div class="table-box">
+      <h2 class="savedt">Data Tersimpan</h2>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr style="background: rgba(255,255,255,0.1);">
+              <th>No</th>
+              <th>Kelas</th>
+              <th>Merah</th>
+              <th>Biru</th>
+              <th>Kuning</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
 
 </div>
+
+<footer class="footer">
+  <p>© 2026 <strong>Kicau Force</strong> Powered by <strong>KW8 ARENA</strong>
+  </p>
+</footer>
 
 <script src="script.js"></script>
 </body>
