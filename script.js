@@ -1,122 +1,166 @@
-document.addEventListener('DOMContentLoaded', function(){
+const scriptURL = "https://script.google.com/macros/s/AKfycbyWcMsA8yHqWkYDFFu4q23Cr0utC7F6Y6KHnNRtM_gf7eniJ7wRAACzM1ZbkD-DZhW8/exec";
+let editIndex = null;
 
-const el = id => document.getElementById(id);
+// 🔑 ID unik
+function generateID(kelas, gantangan) {
+  const list = JSON.parse(localStorage.getItem("data")) || [];
 
-function hitung(){
-  let merah = Number(el('inputMerah').value);
-  let sm = Number(el('stikMerah').value);
-  let sb = Number(el('stikBiru').value);
-  let sk = Number(el('stikKuning').value);
-  let restart = Number(el('inputRestart').value);
+  // filter berdasarkan kelas
+  const filtered = list.filter(item => item.kelas === kelas);
 
-  let totalMerah = merah * sm;
-  let totalBiru = 40 * sb;
-  let totalKuning = 10 * sk;
+  // cari nomor terbesar yang sudah ada
+  let max = 0;
 
-  el('totalMerah').value = totalMerah || 0;
-  el('totalBiru').value = totalBiru || 0;
-  el('totalKuning').value = totalKuning || 0;
-
-  let before = totalMerah + totalBiru + totalKuning;
-  el('before').value = before || 0;
-
-  let after = before;
-  if(restart > 0){
-    while(after > restart){
-      after -= restart;
+  filtered.forEach(item => {
+    const num = parseInt(item.id.split("-")[1]);
+    if (!isNaN(num) && num > max) {
+      max = num;
     }
-  }
+  });
 
-  el('after').value = after || 0;
+  const next = max + 1;
+
+  return `${gantangan}${kelas}-${String(next).padStart(3, "0")}`;
 }
 
-['inputMerah','stikMerah','stikBiru','stikKuning','inputRestart']
-.forEach(id => el(id).addEventListener('input', hitung));
-
-// SAVE FIX FINAL
-el('btnSave').addEventListener('click', function(){
-  let gantangan = el('gantangan').value;
-  if(!gantangan){
-    alert(('HARAP ISI BAGIAN INPUT YANG KOSONG') + '\n' + ('SEBELUM ANDA SIMPAN KE DATA PESERTA'));
-    return;
-  }
-
-  let data = {
-    gantangan,
-    sesi: el('sesi').value,
-    totalMerah: el('totalMerah').value,
-    totalBiru: el('totalBiru').value,
-    totalKuning: el('totalKuning').value,
-    before: el('before').value,
-    restart: el('inputRestart').value,
-    after: el('after').value
-  };
-
-  let list = JSON.parse(localStorage.getItem('data') || '[]');
-  list.push(data);
-  localStorage.setItem('data', JSON.stringify(list));
-
-  el('dropdown').addEventListener('change', showDetail);
-
-  function showDetail(){
-  let list = JSON.parse(localStorage.getItem('data') || '[]');
-  let index = el('dropdown').value;
-  if(index === ""){
-    el('detail').innerHTML = '';
-    return;
-  }
-
-  let d = list[index];
-
-  el('detail').innerHTML = `
-  <div style="margin-top:10px">
-  <b>GANTANGAN:</b> ${d.gantangan}<br>
-  <b>SESI:</b> ${d.sesi}<br><br>
-
-  <b style="color: #fd6060;">MERAH:</b> ${d.totalMerah}<br>
-  <b style="color: #6097fd;">BIRU:</b> ${d.totalBiru}<br>
-  <b style="color: #fde060;">KUNING:</b> ${d.totalKuning}<br><br>
-
-  <b>SEBELUM RESTART:</b> ${d.before}<br>
-  <b>RESTART POINT:</b> ${d.restart}<br>
-  <b>SETELAH RESTART:</b> ${d.after}
-  </div>
-  `;
+// 💾 ambil data
+function getData() {
+  return JSON.parse(localStorage.getItem("data")) || [];
 }
 
-  loadDropdown();
-  alert('BERHASIL SIMPAN');
-});
+// 💾 simpan
+function saveData(data) {
+  localStorage.setItem("data", JSON.stringify(data));
+}
 
-el('btnReset').addEventListener('click', ()=>{
-  document.querySelectorAll('input').forEach(i=>i.value='');
-});
+// 📊 tampilkan
+function loadData() {
+  const list = getData();
+  const tbody = document.getElementById("tableBody");
+  tbody.innerHTML = "";
 
-el('btnDelete').addEventListener('click', ()=>{
-  let list = JSON.parse(localStorage.getItem('data') || '[]');
-  let index = el('dropdown').value;
-  list.splice(index,1);
-  localStorage.setItem('data', JSON.stringify(list));
-  loadDropdown();
-});
-
-el('btnClear').addEventListener('click', ()=>{
-  localStorage.removeItem('data');
-  loadDropdown();
-});
-
-function loadDropdown(){
-  let list = JSON.parse(localStorage.getItem('data') || '[]');
-  let dd = el('dropdown');
-  dd.innerHTML='';
-  list.forEach((d,i)=>{
-    let opt = document.createElement('option');
-    opt.value=i;
-    opt.text = `No.Gantangan ${d.gantangan} - Sesi ${d.sesi}`;
-    dd.appendChild(opt);
+  list.forEach((d, i) => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${d.gantangan}</td>
+        <td>${d.kelas}</td>
+        <td>${d.merah}</td>
+        <td>${d.biru}</td>
+        <td>${d.kuning}</td>
+        <td>
+          <button onclick="editData(${i})" style="background: #3b82f6;">Edit</button>
+          <button onclick="hapusData(${i})" style="background: #ef4444;">Hapus</button>
+        </td>
+      </tr>
+    `;
   });
 }
 
-loadDropdown();
+// ✏️ edit
+function editData(i) {
+  const d = getData()[i];
 
+  gantangan.value = d.gantangan;
+  kelas.value = d.kelas;
+  merah.value = d.merah;
+  biru.value = d.biru;
+  kuning.value = d.kuning;
+
+  editIndex = i;
+}
+
+// 🗑️ hapus
+function hapusData(i) {
+  let list = getData();
+  const data = list[i];
+
+  // kirim delete ke server
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify({
+      id: data.id,
+      action: "delete"
+    })
+  });
+
+  list.splice(i, 1);
+  saveData(list);
+  loadData();
+}
+
+// 🚀 submit
+document.getElementById("form").addEventListener("submit", e => {
+  e.preventDefault();
+
+  let list = getData();
+
+  const data = {
+    id: editIndex !== null ? list[editIndex].id : generateID(kelas.value, gantangan.value),
+    gantangan: gantangan.value,
+    kelas: kelas.value,
+    merah: merah.value,
+    biru: biru.value,
+    kuning: kuning.value,
+    action: "save"
+  };
+
+  if (editIndex !== null) {
+    list[editIndex] = data;
+    editIndex = null;
+  } else {
+    list.push(data);
+  }
+
+  saveData(list);
+
+  // kirim ke spreadsheet
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+
+  form.reset();
+  loadData();
 });
+
+// init
+loadData();
+
+function showToast(message, color = "#22c55e") {
+  const toast = document.getElementById("toast");
+
+  toast.innerText = message;
+  toast.style.background = color;
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
+}
+
+function playSuccessSound() {
+  const sound = document.getElementById("successSound");
+  sound.currentTime = 0;
+  sound.play();
+}
+
+fetch(scriptURL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "text/plain"
+  },
+  body: JSON.stringify(data)
+})
+.then(res => res.text())
+.then(res => {
+  showToast("✅ Data berhasil dikirim");
+  playSuccessSound();
+})
+.catch(err => {
+  showToast("❌ Gagal kirim data", "#ef4444");
+});
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
