@@ -1,86 +1,55 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KW8 ARENA DIGITAL ASSESSMENT SYSTEM</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gantangan App v3.0</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
+<div id="toast" class="toast">✅ Data berhasil dikirim</div>
+
+<audio id="successSound">
+  <source src="https://www.soundjay.com/buttons/sounds/button-3.mp3" type="audio/mpeg">
+</audio>
 
 <div class="container">
-<h2>DIGITAL ASSESSMENT SYSTEM</h2>
 
-<div class="card">
-    <div class="flexib">
-      <input id="gantangan" type="number" placeholder="No. Gantangan">
-      <input id="sesi" type="text" placeholder="Sesi A/B/C">
-    </div>
+  <h2 class="inputdt">Input Data</h2>
 
-<div class="grid">
-  <div>
-    <h4 style="color: #fd6060;">MERAH</h4>
-     <div class="flexib" style="padding:0px;">
-      <input id="inputMerah" type="number" placeholder="Point Kocok">
-      <input id="stikMerah" type="number" placeholder="Jumlah Stik">
-      <input id="totalMerah" readonly disabled placeholder="Total Point" style="background: #fd6060;">
-     </div>
-  </div>
-
-  <div>
-    <h4 style="color: #6097fd;">BIRU</h4>
-    <input disabled placeholder="40" value="40">
-    <input id="stikBiru" type="number" placeholder="Jumlah Stik">
-    <input id="totalBiru" readonly disabled placeholder="Total Point" style="background: #6097fd;">
-  </div>
-
-  <div>
-    <h4 style="color: #fde060;">KUNING</h4>
-    <input disabled placeholder="10" value="10">
-    <input id="stikKuning" type="number" placeholder="Jumlah Stik">
-    <input id="totalKuning" readonly disabled placeholder="Total Point" style="background: #fde060;">
-  </div>
-</div>
-
-<h4>HASIL POINT PESERTA</h4>
-<div class="flex">
-  <div class="flexib">
+  <form id="form">
+    <input type="number" id="gantangan" placeholder="Nomor Gantangan" required>
     
-    <div>
-        <h4>JUMLAH POINT</h4>
-        <input id="before" readonly disabled placeholder="Jumlah Point">
-    </div>
+    <select id="kelas" required>
+      <option value="">Pilih Kelas</option>
+      <option>A</option>
+      <option>B</option>
+    </select>
 
-    <div>
-        <h4>RESTART KOCOK</h4>
-        <input id="inputRestart" type="number" placeholder="Restart Kocok">
-    </div>
-    
-    <div>
-        <h4>HASIL POINT</h4>
-        <input id="after" readonly disabled placeholder="Hasil Restart">
-    </div>
+    <input type="number" id="merah" placeholder="Stick Merah" required>
+    <input type="number" id="biru" placeholder="Stick Biru" required>
+    <input type="number" id="kuning" placeholder="Stick Kuning" required>
 
-  </div>
-</div>
+    <button type="submit">Kirim</button>
+  </form>
 
-<div class="btn-group">
-<button id="btnSave">SIMPAN</button>
-<button id="btnReset">BERSIHKAN</button>
-</div>
-</div>
+  <h2 class="savedt">Data Tersimpan</h2>
 
-<h2>DATA PESERTA</h2>
-<div class="card">
-<select id="dropdown">
-<option value="">Pilih Gantangan</option>
-</select>
-<div id="detail"></div>
-<div class="btn-group">
-<button id="btnDelete">HAPUS (1X)</button>
-<button id="btnClear">HAPUS SEMUA</button>
-</div>
-</div>
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Kelas</th>
+        <th>Merah</th>
+        <th>Biru</th>
+        <th>Kuning</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
 
 </div>
 
