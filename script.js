@@ -62,36 +62,122 @@ function loadData() {
 function editData(i) {
   const d = getData()[i];
 
+  if (!d.gantangan || !d.kelas) return;
+
+  // isi value input
   gantangan.value = d.gantangan;
   kelas.value = d.kelas;
   merah.value = d.merah;
   biru.value = d.biru;
   kuning.value = d.kuning;
 
+  // 🔥 SET TAMPILAN GANTANGAN
+  document.getElementById("selectedText").innerText =
+    "NO. GANTANGAN = " + d.gantangan;
+
+  document.getElementById("selectedGantangan").style.display = "flex";
+  document.getElementById("gantanganGrid").style.display = "none";
+
+  // 🔥 SET TAMPILAN KELAS
+  document.getElementById("selectedKelasText").innerText =
+    "SESI / PUTARAN = " + d.kelas;
+
+  document.getElementById("selectedKelas").style.display = "flex";
+  document.getElementById("kelasGrid").style.display = "none";
+
   editIndex = i;
 }
 
-// 🗑️ hapus
+// 🗑️ Hapus Satu Data
 function hapusData(i) {
-  let list = getData();
+  const list = getData();
   const data = list[i];
 
-  // kirim delete ke server
+  if (!confirm("Yakin ingin hapus data ini?")) return;
+
+  // tampilkan loading
+  showLoadingOverlay();
+
   fetch(scriptURL, {
     method: "POST",
     body: JSON.stringify({
       id: data.id,
       action: "delete"
     })
-  });
+  })
+  .then(res => res.text())
+  .then(result => {
+    if (result === "deleted") {
 
-  list.splice(i, 1);
-  saveData(list);
-  loadData();
+      setTimeout(() => {
+        list.splice(i, 1);
+        saveData(list);
+        loadData();
+
+        showToast("🗑️ Data berhasil dihapus", "#22c55e");
+      }, 1000); // delay 0.4 detik
+    }
+    else {
+      showToast("❌ Gagal hapus di server", "#ef4444");
+    }
+
+  })
+  .catch(() => {
+    showToast("❌ Koneksi error", "#ef4444");
+  })
+  .finally(() => {
+    hideLoadingOverlay();
+  });
+}
+
+function deleteAllData() {
+  if (!confirm("Yakin ingin hapus SEMUA data?")) return;
+
+  // tampilkan loading
+  showLoadingOverlay();
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify({ action: "deleteAll" })
+  })
+  .then(res => res.text())
+  .then(result => {
+
+    if (result === "all deleted") {
+
+      // ⏳ delay biar spreadsheet benar-benar update
+      setTimeout(() => {
+        localStorage.removeItem("data");
+        loadData();
+
+        showToast("🔥 Semua data berhasil dihapus", "#22c55e");
+      }, 1000);
+
+    } else {
+      showToast("❌ Gagal hapus semua data", "#ef4444");
+    }
+
+  })
+  .catch(() => {
+    showToast("❌ Koneksi error", "#ef4444");
+  })
+  .finally(() => {
+    hideLoadingOverlay();
+  });
 }
 
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
+
+  if (!gantangan.value || !kelas.value) {
+    showToast("⚠️ Pilih gantangan & sesi dulu", "#f59e0b");
+    return;
+  }
+
+  if (!merah.value && !biru.value && !kuning.value) {
+    showToast("⚠️ Minimal isi 1 nilai stick", "#f59e0b");
+    return;
+  }
 
   let list = getData();
 
@@ -112,27 +198,25 @@ document.getElementById("form").addEventListener("submit", e => {
   setLoadingData(data);
 
   // tampilkan overlay
-  showLoading();
+  showConfirm();
 });
 
 function confirmSubmit() {
   if (isSubmitting) return;
   isSubmitting = true;
-  isSubmitting = false;
 
   const confirmBtn = document.getElementById("confirmBtn");
   const cancelBtn = document.getElementById("cancelBtn");
-  const spinner = document.getElementById("sendingSpinner");
 
-  // 🔒 disable tombol
+  // disable tombol
   confirmBtn.disabled = true;
   cancelBtn.disabled = true;
 
   confirmBtn.innerText = "Mengirim...";
-  confirmBtn.style.opacity = "0.7";
 
-  // 🔥 tampilkan spinner
-  spinner.style.display = "block";
+  // pindah overlay
+  hideConfirm();
+  showLoadingOverlay();
 
   let list = getData();
 
@@ -149,33 +233,44 @@ function confirmSubmit() {
     method: "POST",
     body: JSON.stringify(pendingData)
   })
-  .then(res => res.text())
   .then(() => {
-    showToast("✅ Data berhasil dikirim");
     playSuccessSound();
+    showSuccessAnimation();
   })
   .catch(() => {
     showToast("❌ Gagal kirim data", "#ef4444");
   })
   .finally(() => {
-    hideLoading();
+    hideLoadingOverlay();
 
-    // reset tombol
     confirmBtn.disabled = false;
     cancelBtn.disabled = false;
     confirmBtn.innerText = "Konfirmasi";
-    spinner.style.display = "none";
 
     form.reset();
     resetGantangan();
     resetKelas();
     loadData();
+
+    isSubmitting = false;
   });
 }
 
 function cancelSubmit() {
   pendingData = null;
-  hideLoading();
+  hideConfirm();
+}
+
+function showSuccessAnimation() {
+  const el = document.getElementById("successOverlay");
+
+  el.classList.add("show");
+  lockScroll();
+
+  setTimeout(() => {
+    el.classList.remove("show");
+    unlockScroll();
+  }, 2000);
 }
 
 // init
@@ -194,37 +289,44 @@ function showToast(message, color = "#22c55e") {
   }, 2000);
 }
 
-const sound = new Audio("https://raw.githubusercontent.com/syhnstore/kw8arena/main/assets/sound/notif.mp3");
+let sound;
+
+document.addEventListener("click", () => {
+  if (!sound) {
+    sound = new Audio("https://raw.githubusercontent.com/syhnstore/kw8arena/main/assets/sound/notif.mp3");
+    sound.volume = 1;
+  }
+}, { once: true });
 
 function playSuccessSound() {
   sound.currentTime = 0;
   sound.play().catch(() => {});
 }
 
-sound.play().catch(() => {});
-
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
 
-function showLoading() {
-  document.getElementById("loading").classList.add("show");
-}
-
-function hideLoading() {
-  document.getElementById("loading").classList.remove("show");
-}
-
 const submitBtn = document.querySelector("button[type='submit']");
 
-function showLoading() {
-  document.getElementById("loading").classList.add("show");
-  submitBtn.disabled = true;
+function showConfirm() {
+  document.getElementById("confirmOverlay").classList.add("show");
+  lockScroll();
 }
 
-function hideLoading() {
-  document.getElementById("loading").classList.remove("show");
-  submitBtn.disabled = false;
+function hideConfirm() {
+  document.getElementById("confirmOverlay").classList.remove("show");
+  unlockScroll();
+}
+
+function showLoadingOverlay() {
+  document.getElementById("loadingOverlay").classList.add("show");
+  lockScroll();
+}
+
+function hideLoadingOverlay() {
+  document.getElementById("loadingOverlay").classList.remove("show");
+  unlockScroll();
 }
 
 function setLoadingData(data) {
@@ -299,5 +401,50 @@ function resetKelas() {
   document.getElementById("kelasGrid").style.display = "grid";
 }
 
+function lockScroll() {
+  document.body.classList.add("no-scroll");
+}
+
+function unlockScroll() {
+  document.body.classList.remove("no-scroll");
+}
+
 // jalankan
 loadKelasGrid();
+
+document.addEventListener("touchmove", function(e) {
+  if (document.body.classList.contains("no-scroll")) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+function searchData() {
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+  const list = getData();
+  const tbody = document.getElementById("tableBody");
+
+  tbody.innerHTML = "";
+
+  const filtered = list.filter(d => 
+    d.gantangan.toLowerCase().includes(keyword) ||
+    d.kelas.toLowerCase().includes(keyword)
+  );
+
+  filtered.forEach(d => {
+    const index = list.findIndex(x => x.id === d.id);
+
+    tbody.innerHTML += `
+      <tr>
+        <td>${d.gantangan}</td>
+        <td>${d.kelas}</td>
+        <td>${d.merah}</td>
+        <td>${d.biru}</td>
+        <td>${d.kuning}</td>
+        <td>
+          <button onclick="editData(${index})" class="edited">Edit</button>
+          <button onclick="hapusData(${index})" class="erase">Hapus</button>
+        </td>
+      </tr>
+    `;
+  });
+}
