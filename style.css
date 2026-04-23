@@ -22,7 +22,32 @@ h2.inputdt {
 
 h2.savedt {
   text-align: center;
-  margin: -5px 0 20px 0;
+  margin: 0px 0 20px 0;
+}
+
+.action-log {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.action-log h2 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.btn-reset, .btn-search {
+  background: #a61717;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  width: 100px;
+  margin: 0;
 }
 
 /* 🔥 LAYOUT FLEX DESKTOP */
@@ -78,11 +103,10 @@ input:focus, select:focus {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
-  margin-top: 3px;
 }
 
 .kelas-grid button {
-  padding: 14px;
+  padding: 12px;
   font-size: 16px;
   font-weight: bold;
   border-radius: 10px;
@@ -221,21 +245,19 @@ td button {
 /* 🔥 TOAST NOTIF */
 .toast {
   position: fixed;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
   background: #22c55e;
   color: white;
   padding: 12px 18px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  border-radius: 8px;
   opacity: 0;
-  transform: translateY(-20px);
-  transition: 0.5s;
-  z-index: 999;
+  transform: translateY(20px);
+  transition: 0.3s;
+  z-index: 9999;
 }
 
 .toast.show {
-  z-index: 1000;
   opacity: 1;
   transform: translateY(0);
 }
@@ -247,7 +269,8 @@ td button {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(15, 23, 42, 0.9);
+  background: rgb(0 0 0 / 70%);
+  backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -263,18 +286,134 @@ td button {
   pointer-events: all;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(0 0 0 / 70%);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(6px);
+}
+
+/* aktif */
+.overlay.show {
+  display: flex;
+}
+
+/* box */
+.box {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 320px;
+}
+
+/* center loading */
+.center {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-box {
+  background: rgba(30,41,59,0.9);
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+}
+
+.loading-box h3 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+}
+
+.loading-data {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.loading-data p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.loading-data span {
+  font-weight: bold;
+  color: #22c55e;
+}
+
+.loading-text {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* 🔒 lock scroll */
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  touch-action: none;
+}
+
+.success-box {
+  text-align: center;
+  color: white;
+}
+
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid #22c55e;
+  margin: auto;
+  position: relative;
+  animation: pop 0.3s ease;
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 40px;
+  width: 20px;
+  height: 10px;
+  border-left: 4px solid #22c55e;
+  border-bottom: 4px solid #22c55e;
+  transform: rotate(-45deg);
+  animation: draw 0.4s ease forwards;
+}
+
+@keyframes draw {
+  0% { width: 0; height: 0; }
+  100% { width: 20px; height: 10px; }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 .spinner {
   width: 50px;
   height: 50px;
-  border: 5px solid rgba(255,255,255,0.2);
-  border-top: 5px solid #22c55e;
+  border: 3px solid rgb(34 197 94 / 0%);
+  border-top: 3px solid #22c55e;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 10px;
+  animation: spin 0.8s linear infinite;
+  margin: 0;
 }
 
 /* BOX */
-.loading-box {
+.confirmation-box {
   background: rgba(30,41,59,0.95);
   padding: 20px;
   border-radius: 16px;
@@ -282,29 +421,85 @@ td button {
   max-width: 320px;
 }
 
-.invoice .row {
+/* CONTAINER */
+.invoice-grid {
+  margin-top: 10px;
+}
+
+/* TOP GRID */
+.top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.top-grid div {
+  background: rgb(62 77 105 / 50%);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.top-grid .highlight {
+  background: #ffffff;
+  color: black;
+  font-size: 35px;
+  padding: 0;
+  border: solid 2px #000000;
+}
+
+.top-grid small {
+  font-size: 16px;
+  color: #c7d3e3;
+  font-weight: 500;
+}
+
+.value {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* POINT ROW */
+.point {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  font-size: 14px;
-}
-
-.invoice .row span:last-child {
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
   font-weight: bold;
-  color: #22c55e;
 }
 
-/* TOTAL ROW */
-.invoice .total {
-  border-bottom: none;
+/* WARNA */
+.point.merah {
+  background: rgba(239,68,68,0.2);
+  color: #f87171;
+}
+
+.point.biru {
+  background: rgba(59,130,246,0.2);
+  color: #60a5fa;
+}
+
+.point.kuning {
+  background: rgba(234,179,8,0.2);
+  color: #facc15;
+}
+
+/* NOTE */
+.note {
+  margin: 14px 0 2px;
+  font-size: 12px;
+  font-style: italic;
+  color: #94a3b8;
+  border-top: 1px dashed rgba(255, 255, 255, 0.2);
+  padding-top: 8px;
 }
 
 /* BUTTON AREA */
 .loading-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 15px;
 }
 
 /* BUTTON STYLE */
@@ -318,6 +513,34 @@ td button {
   background: #ef4444;
 }
 
+.edited {
+  background: #3b82f6;
+}
+
+.edited:hover {
+  background: #3b82f6;
+}
+
+.erase {
+  flex: 1;
+  background: #ef4444;
+}
+
+.edited:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(88, 152, 255, 0.4);
+}
+
+.erase:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(239,68,68,0.4);
+}
+
+.btn-cancel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(239,68,68,0.4);
+}
+
 .sending-spinner {
   width: 30px;
   height: 30px;
@@ -328,7 +551,7 @@ td button {
   margin: 15px auto 0;
 }
 
-.loading-box h3 {
+.confirmation-box h3 {
   margin: 10px 0;
 }
 
@@ -382,10 +605,10 @@ td button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(34,197,94,0.2);
-  padding: 12px;
+  background: rgb(15 23 42 / 60%);
+  padding: 10px;
   border-radius: 12px;
-  margin-top: 8px;
+  margin-top: 0;
 }
 
 .selected-box span {
