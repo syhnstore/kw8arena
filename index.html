@@ -7,41 +7,48 @@
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <link rel="preload" href="https://raw.githubusercontent.com/syhnstore/kw8arena/main/assets/sound/notif.mp3" as="audio">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+<div class="toast"></div>
 
-<div id="loading" class="loading">
+<div id="confirmOverlay" class="loading">
   <div class="loading-box">
 
     <h3>Konfirmasi Data</h3>
 
-    <div class="invoice">
+    <div class="invoice-grid">
 
-      <div class="row">
-        <span>Gantangan</span>
-        <span id="loadGantangan"></span>
+      <div class="top-grid">
+        <div>
+          <small>Gantangan</small>
+          <div id="loadGantangan" class="value highlight"></div>
+        </div>
+        <div>
+          <small>Kelas</small>
+          <div id="loadKelas" class="value highlight"></div>
+        </div>
       </div>
 
-      <div class="row">
-        <span>Sesi</span>
-        <span id="loadKelas"></span>
-      </div>
-
-      <div class="row">
+      <div class="point merah">
         <span>Merah</span>
         <span id="loadMerah"></span>
       </div>
 
-      <div class="row">
+      <div class="point biru">
         <span>Biru</span>
         <span id="loadBiru"></span>
       </div>
 
-      <div class="row total">
+      <div class="point kuning">
         <span>Kuning</span>
         <span id="loadKuning"></span>
       </div>
+
+      <p class="note">
+        Catatan: Jika sudah benar silahkan klik tombol <b>Konfirmasi</b> untuk mengirim data ke server anda.
+      </p>
 
     </div>
 
@@ -54,13 +61,22 @@
       </button>
     </div>
 
-    <!-- spinner kecil -->
-    <div id="sendingSpinner" class="sending-spinner" style="display:none;"></div>
-
   </div>
 </div>
 
-<div id="toast" class="toast">✅ Data berhasil dikirim</div>
+<div id="loadingOverlay" class="overlay">
+  <div class="box center">
+    <div class="spinner"></div>
+    <p style=" margin: 15px 0 0;">Mengirim data ke server</p>
+  </div>
+</div>
+
+<div id="successOverlay" class="overlay">
+  <div class="success-box">
+    <div class="checkmark"></div>
+    <p>Data Berhasil Dikirim</p>
+  </div>
+</div>
 
 <div class="container">
 
@@ -70,6 +86,7 @@
 
     <!-- LEFT: FORM -->
     <div class="form-box">
+      <h2 class="savedt">FORM INPUT DATA</h2>
       <form id="form">
 
         <div class="input-group">
@@ -127,14 +144,19 @@
 
     <!-- RIGHT: TABLE -->
     <div class="table-box">
-      <h2 class="savedt">Data Tersimpan</h2>
+      <h2 class="savedt">DATA TERSIMPAN</h2>
+
+      <div class="action-log">
+        <input type="text" id="searchInput" placeholder="Cari No Gantangan / Sesi..." oninput="searchData()">
+        <button onclick="deleteAllData()" class="btn-reset">Hapus Semua</button>
+      </div>
 
       <div class="table-wrapper">
         <table>
           <thead>
             <tr style="background: rgba(255,255,255,0.1);">
               <th>No</th>
-              <th>Kelas</th>
+              <th>Sesi</th>
               <th>Merah</th>
               <th>Biru</th>
               <th>Kuning</th>
