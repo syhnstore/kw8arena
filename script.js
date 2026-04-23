@@ -100,7 +100,7 @@ function hapusData(i) {
 
   fetch(scriptURL, {
     method: "POST",
-    body: new URLSearchParams({
+    body: JSON.stringify({
       id: data.id,
       action: "delete"
     })
@@ -138,9 +138,7 @@ function deleteAllData() {
 
   fetch(scriptURL, {
     method: "POST",
-    body: new URLSearchParams({
-      action: "deleteAll"
-    })
+    body: JSON.stringify({ action: "deleteAll" })
   })
   .then(res => res.text())
   .then(result => {
@@ -233,7 +231,7 @@ function confirmSubmit() {
 
   fetch(scriptURL, {
     method: "POST",
-    body: new URLSearchParams(pendingData)
+    body: JSON.stringify(pendingData)
   })
   .then(() => {
     playSuccessSound();
@@ -305,9 +303,9 @@ function playSuccessSound() {
   sound.play().catch(() => {});
 }
 
-// SERVICE WORKER DIMATIKAN SEMENTARA if ('serviceWorker' in navigator) {
-// SERVICE WORKER DIMATIKAN SEMENTARA  navigator.serviceWorker.register('sw.js');
-// SERVICE WORKER DIMATIKAN SEMENTARA}
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
 
 const submitBtn = document.querySelector("button[type='submit']");
 
