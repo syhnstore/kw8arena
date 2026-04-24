@@ -254,7 +254,7 @@ td button {
   opacity: 0;
   transform: translateY(20px);
   transition: 0.3s;
-  z-index: 99999;
+  z-index: 999999;
 }
 
 .toast.show {
