@@ -62,6 +62,9 @@ function loadData() {
 function editData(i) {
   const d = getData()[i];
 
+  setLoadingText("Memperbarui data...");
+  showLoadingOverlay();
+
   if (!d.gantangan || !d.kelas) return;
 
   // isi value input
@@ -93,9 +96,10 @@ function hapusData(i) {
   const list = getData();
   const data = list[i];
 
-  if (!confirm("Yakin ingin hapus data ini?")) return;
+  showToast("⏳ Menghapus...", "#f59e0b");
 
   // tampilkan loading
+  setLoadingText("Sedang menghapus data server...");
   showLoadingOverlay();
 
   fetch(scriptURL, {
@@ -114,11 +118,11 @@ function hapusData(i) {
         saveData(list);
         loadData();
 
-        showToast("🗑️ Data berhasil dihapus", "#22c55e");
-      }, 1000); // delay 0.4 detik
+        showToast("🗑️ Berhasil dihapus", "#22c55e");
+      }, 1000); // delay 1 detik
     }
     else {
-      showToast("❌ Gagal hapus di server", "#ef4444");
+      showToast("❌ Gagal dihapus", "#ef4444");
     }
 
   })
@@ -127,6 +131,7 @@ function hapusData(i) {
   })
   .finally(() => {
     hideLoadingOverlay();
+    setLoadingText("Mengirim data ke server");
   });
 }
 
@@ -134,6 +139,7 @@ function deleteAllData() {
   if (!confirm("Yakin ingin hapus SEMUA data?")) return;
 
   // tampilkan loading
+  setLoadingText("Menghapus semua data...");
   showLoadingOverlay();
 
   fetch(scriptURL, {
@@ -163,6 +169,7 @@ function deleteAllData() {
   })
   .finally(() => {
     hideLoadingOverlay();
+    setLoadingText("Mengirim data ke server");
   });
 }
 
@@ -216,6 +223,7 @@ function confirmSubmit() {
 
   // pindah overlay
   hideConfirm();
+  setLoadingText("Mengirim data ke server...");
   showLoadingOverlay();
 
   let list = getData();
@@ -228,6 +236,8 @@ function confirmSubmit() {
   }
 
   saveData(list);
+
+  setLoadingText("Memperbarui data...");
 
   fetch(scriptURL, {
     method: "POST",
@@ -242,6 +252,7 @@ function confirmSubmit() {
   })
   .finally(() => {
     hideLoadingOverlay();
+    setLoadingText("Mengirim data ke server");
 
     confirmBtn.disabled = false;
     cancelBtn.disabled = false;
@@ -335,6 +346,10 @@ function setLoadingData(data) {
   document.getElementById("loadMerah").innerText = data.merah;
   document.getElementById("loadBiru").innerText = data.biru;
   document.getElementById("loadKuning").innerText = data.kuning;
+}
+
+function setLoadingText(text) {
+  document.getElementById("loadingText").innerText = text;
 }
 
 function loadGantanganGrid() {
