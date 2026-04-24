@@ -62,9 +62,6 @@ function loadData() {
 function editData(i) {
   const d = getData()[i];
 
-  setLoadingText("Memperbarui data...");
-  showLoadingOverlay();
-
   if (!d.gantangan || !d.kelas) return;
 
   // isi value input
