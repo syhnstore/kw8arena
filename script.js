@@ -88,17 +88,18 @@ function editData(i) {
   editIndex = i;
 }
 
-// 🗑️ Hapus Satu Data
 function hapusData(i) {
-  const list = getData();
+  let list = getData();
   const data = list[i];
 
-  showToast("⏳ Menghapus...", "#f59e0b");
+  // 🚀 HAPUS LANGSUNG DI UI
+  list.splice(i, 1);
+  saveData(list);
+  loadData();
 
-  // tampilkan loading
-  setLoadingText("Sedang menghapus data server...");
-  showLoadingOverlay();
+  showToast("🗑️ Data dihapus", "#22c55e");
 
+  // 🔥 KIRIM KE SERVER DI BELAKANG
   fetch(scriptURL, {
     method: "POST",
     body: JSON.stringify({
@@ -108,36 +109,17 @@ function hapusData(i) {
   })
   .then(res => res.text())
   .then(result => {
-    if (result === "deleted") {
-
-      setTimeout(() => {
-        list.splice(i, 1);
-        saveData(list);
-        loadData();
-
-        showToast("🗑️ Berhasil dihapus", "#22c55e");
-      }, 1000); // delay 1 detik
+    if (result !== "deleted") {
+      console.warn("Server gagal hapus:", data.id);
     }
-    else {
-      showToast("❌ Gagal dihapus", "#ef4444");
-    }
-
   })
   .catch(() => {
-    showToast("❌ Koneksi error", "#ef4444");
-  })
-  .finally(() => {
-    hideLoadingOverlay();
-    setLoadingText("Mengirim data ke server");
+    console.warn("Offline / gagal koneksi");
   });
 }
 
 function deleteAllData() {
   if (!confirm("Yakin ingin hapus SEMUA data?")) return;
-
-  // tampilkan loading
-  setLoadingText("Menghapus semua data...");
-  showLoadingOverlay();
 
   fetch(scriptURL, {
     method: "POST",
