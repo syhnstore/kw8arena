@@ -2,11 +2,13 @@
   "general": {
     "userAgentRegexes": [],
     "replaceStrings": [],
-    "publicKey": "zpxpjry",
-    "deviceRegKey": "7rz38n5rjw369tqxkbed9ftn18",
-    "appName": "KW8 ARENA DIGITAL ASSESSMENT S",
-    "initialUrl": "https://kw8arena.netlify.app/",
-    "keepScreenOn": null,
+    "publicKey": "lpwknmn",
+    "deviceRegKey": "q319ff0eyhp9b0x92qcav7zjkw",
+    "appName": "KW8 ARENA UPD",
+    "initialUrl": "https://syhnstore.github.io/kw8arena/?=V2241010",
+    "keepScreenOn": true,
+    "iosFullScreenWebview": false,
+    "androidFullScreen": false,
     "screenOrientation": {
       "iphone": null,
       "ipad": null,
@@ -22,8 +24,9 @@
     "androidForceUserAgent": "",
     "languages": [],
     "nativeBridgeUrls": [],
-    "iosBundleId": "co.median.ios.zpxpjry",
-    "androidPackageName": "co.median.android.zpxpjry",
+    "iosBundleId": "co.median.ios.lpwknmn",
+    "iosVersionName": "2.24.10.8",
+    "androidPackageName": "co.median.android.lpwknmn",
     "androidSigningKey": "release",
     "iosCustomHeaders": {},
     "androidCustomHeaders": {},
@@ -34,7 +37,7 @@
     "ignorePageFinishedRegexes": [],
     "redirects": [],
     "iosSettings": {},
-    "iosPullToRefresh": true,
+    "iosPullToRefresh": false,
     "androidPullToRefresh": false,
     "swipeGestures": null,
     "iosConnectionOfflineTime": 10,
@@ -43,60 +46,70 @@
       "active": true,
       "rules": [
         {
+          "id": 1,
           "regex": "^(?!https?://).*",
           "mode": "external",
           "label": "Non-web links",
           "pagesToTrigger": "custom"
         },
         {
+          "id": 2,
           "regex": "https?://([-\\w]+\\.)*facebook\\.com.*",
           "mode": "appbrowser",
           "label": "Facebook",
           "pagesToTrigger": "custom"
         },
         {
+          "id": 3,
           "regex": "https?://([\\-\\w]+\\.)*(twitter|x)\\.com/.*",
           "mode": "appbrowser",
           "label": "Twitter/X",
           "pagesToTrigger": "custom"
         },
         {
+          "id": 4,
           "regex": "https?://([-\\w]+\\.)*instagram\\.com/.*",
           "mode": "appbrowser",
           "label": "Instagram",
           "pagesToTrigger": "custom"
         },
         {
+          "id": 5,
           "regex": "https?://maps\\.google\\.com.*",
           "mode": "appbrowser",
           "label": "Google Maps",
           "pagesToTrigger": "custom"
         },
         {
+          "id": 6,
           "regex": "https?://([-\\w]+\\.)*google\\.com/maps/search/.*",
           "mode": "appbrowser",
           "label": "Google Maps Search",
           "pagesToTrigger": "custom"
         },
         {
+          "id": 7,
           "regex": "https?://([-\\w]+\\.)*linkedin\\.com/.*",
           "mode": "appbrowser",
           "label": "LinkedIn",
           "pagesToTrigger": "custom"
         },
         {
+          "id": 8,
           "regex": "https?://login\\.microsoftonline\\.com.*",
           "mode": "internal",
           "label": "Microsoft Login",
           "pagesToTrigger": "custom"
         },
         {
-          "regex": "https?:\\/\\/([-\\w]+\\.)*netlify.app(\\/.*)?$",
+          "id": 9,
+          "regex": "https?:\\/\\/([-\\w]+\\.)*github.io(\\/.*)?$",
           "mode": "internal",
           "label": "All pages on my domain",
           "pagesToTrigger": "domain"
         },
         {
+          "id": 10,
           "regex": ".*",
           "mode": "appbrowser",
           "label": "All Other Links",
@@ -110,14 +123,34 @@
     },
     "navigationTitles": {
       "active": true,
-      "titles": []
+      "titles": [
+        {
+          "regex": ".*",
+          "title": "",
+          "customTitle": true,
+          "showImage": false,
+          "id": "1"
+        }
+      ]
     },
     "iosShowRefreshButton": false,
     "androidShowRefreshButton": false,
     "actionConfig": {
       "active": true,
-      "actions": [],
-      "actionSelection": []
+      "actions": [
+        {
+          "id": "1",
+          "items": []
+        }
+      ],
+      "actionSelection": [
+        {
+          "id": "1",
+          "label": "Top Nav Bar Menu 1 - All Pages",
+          "regex": ".*",
+          "custom": false
+        }
+      ]
     },
     "navigationLevels": {
       "active": true,
@@ -152,23 +185,13 @@
       "enabled": false,
       "visibilityByPages": "allPages",
       "visibilityByBackButton": "backButtonActive",
-      "regexes": [
-        {
-          "enabled": true,
-          "regex": ".*"
-        }
-      ],
+      "regexes": [],
       "items": [
         {
           "system": "back",
-          "titleType": "defaultText",
-          "visibility": "allPages",
-          "urlRegex": [
-            {
-              "enabled": true,
-              "regex": ".*"
-            }
-          ]
+          "titleType": "noText",
+          "visibility": "specificPages",
+          "urlRegex": []
         },
         {
           "system": "refresh",
@@ -204,12 +227,12 @@
   "styling": {
     "splashScreen": {
       "ios": {
-        "backgroundImage": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673561_bqaycyjjc4nn8_FFFFFF_1_2x2.png",
-        "backgroundImageDark": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673573_xxuuh7wv4621e_0E0D08_1_2x2.png",
-        "backgroundColor": "#FFFFFF",
-        "backgroundColorDark": "#0E0D08",
-        "centerImage": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/splashscreen_ios.png",
-        "centerImageDark": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/splashscreen_ios_dark.png",
+        "backgroundImage": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796491_64z7e51j8xjk8_ffffff_1_2x2.png",
+        "backgroundImageDark": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796499_7d5ty1nz7dt4u_000000_1_2x2.png",
+        "backgroundColor": "#ffffff",
+        "backgroundColorDark": "#000000",
+        "centerImage": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/splashscreen_ios.png",
+        "centerImageDark": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/splashscreen_ios_dark.png",
         "animation": null,
         "animationDark": null,
         "animationFrame": null,
@@ -219,22 +242,22 @@
       },
       "android": {
         "launchImages": {
-          "xxxhdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673897_482wtryg67mu0_720x720.png",
-          "xxhdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673888_p15d4zz7jvm22_540x540.png",
-          "xhdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673880_p6t0rbcnbegg2_360x360.png",
-          "hdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673868_048n6qj1pa9u8_270x270.png",
-          "mdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673854_tx2w2y8p7htnm_180x180.png"
+          "xxxhdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796709_xdycvf8f4pvrj_720x720.png",
+          "xxhdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796703_1y1d357gq3uw0_540x540.png",
+          "xhdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796697_hn3bdutbbvzrg_360x360.png",
+          "hdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796691_bh4nfmzwk9tqg_270x270.png",
+          "mdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796681_njf4dyxn57mzw_180x180.png"
         },
         "launchImagesDark": {
-          "xxxhdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175674045_uqxktq15y8z5r_720x720.png",
-          "xxhdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175674003_3dbbfbkpy5uty_540x540.png",
-          "xhdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673958_03fzcxh21tda0_360x360.png",
-          "hdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673928_5tg1d4cm6uya6_270x270.png",
-          "mdpi": "https://gonativeio.s3.amazonaws.com/app_files/zpxpjry/1775175673907_7ked8e7vac9uw_180x180.png"
+          "xxxhdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796760_zgw89z55q2v0e_720x720.png",
+          "xxhdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796740_x1h96p846dzuw_540x540.png",
+          "xhdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796727_7pp00d1gq7jj4_360x360.png",
+          "hdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796721_rz9p9uhwypqqe_270x270.png",
+          "mdpi": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/1776898796714_5nk32fzp4egpw_180x180.png"
         },
         "showSplash": true,
-        "backgroundColor": "#FFFFFF",
-        "backgroundColorDark": "#0E0D08",
+        "backgroundColor": "#ffffff",
+        "backgroundColorDark": "#000000",
         "animation": null,
         "animationDark": null,
         "animationFrame": null,
@@ -250,25 +273,25 @@
     "androidTabPressedBackgroundColorDark": "#999999",
     "androidBackgroundColor": "#FFFFFF",
     "androidBackgroundColorDark": "#333333",
-    "icon": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_ios.png",
-    "iosIcon": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_ios.png",
+    "icon": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_ios.png",
+    "iosIcon": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_ios.png",
     "customIcons": {},
     "iosDarkMode": "auto",
-    "iosEnableBlurInStatusBar": false,
+    "iosEnableBlurInStatusBar": true,
     "iosStatusBarStyle": "auto",
-    "iosEnableOverlayInStatusBar": false,
+    "iosEnableOverlayInStatusBar": true,
     "iosStatusBarBackgroundColor": "#ffffffff",
     "iosStatusBarBackgroundColorDark": "#000000",
     "androidStatusBarStyle": "auto",
-    "androidEnableOverlayInStatusBar": false,
+    "androidEnableOverlayInStatusBar": true,
     "androidStatusBarBackgroundColor": "#5C5C5C",
     "androidStatusBarBackgroundColorDark": "#333333",
-    "iosTintColor": "#0E0D08",
+    "iosTintColor": "#000000",
     "iosTintColorDark": "#ffffff",
-    "androidIcon": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_android.png",
+    "androidIcon": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_android.png",
     "androidTheme": "auto",
-    "androidAccentColor": "#009688",
-    "androidAccentColorDark": "#80cbc4",
+    "androidAccentColor": "#000000",
+    "androidAccentColorDark": "#ffffff",
     "androidSystemNavBarColor": "#FFFFFF",
     "androidSystemNavBarColorDark": "#000000",
     "androidPullToRefreshColor": "#1A100B",
@@ -282,34 +305,34 @@
     "forceViewportWidth": null,
     "initialZoom": null,
     "pinchToZoom": null,
-    "iosDynamicType": null,
+    "iosDynamicType": true,
     "iosGlassDesign": false,
-    "iosTransparentNavBar": true,
+    "iosTransparentNavBar": false,
     "androidSwipeNavigationBackgroundColor": "#FFFFFF",
     "androidSwipeNavigationBackgroundColorDark": "#333333",
     "androidSwipeNavigationActiveColor": "#000000",
     "androidSwipeNavigationActiveColorDark": "#FFFFFF",
     "androidSwipeNavigationInactiveColor": "#666666",
     "androidSwipeNavigationInactiveColorDark": "#666666",
-    "iosHideNavBarOnScroll": false,
-    "androidHideNavBarOnScroll": false,
-    "navigationTitleImageLocation": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_ios.png",
-    "navigationTitleImageLocationDark": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_ios.png",
-    "iosTitleColor": "#0E0D08",
-    "iosTitleColorDark": "#ffffff",
-    "iosNavigationBarTintColor": "#f8f8f8",
-    "iosNavigationBarTintColorDark": "#202020",
-    "androidActionBarBackgroundColor": "#FFFFFF",
-    "androidActionBarBackgroundColorDark": "#333333",
-    "androidHeaderImage": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_android.png",
-    "androidHeaderImageDark": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_android.png",
-    "androidActionBarForegroundColor": "#1A100B",
-    "androidActionBarForegroundColorDark": "#FFFFFF",
+    "iosHideNavBarOnScroll": true,
+    "androidHideNavBarOnScroll": true,
+    "navigationTitleImageLocation": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_ios.png",
+    "navigationTitleImageLocationDark": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_ios.png",
+    "iosTitleColor": "#ffffff",
+    "iosTitleColorDark": "#0f172a",
+    "iosNavigationBarTintColor": "#ffffff",
+    "iosNavigationBarTintColorDark": "#0f172a",
+    "androidActionBarBackgroundColor": "#ffffff",
+    "androidActionBarBackgroundColorDark": "#0f172a",
+    "androidHeaderImage": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_android.png",
+    "androidHeaderImageDark": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_android.png",
+    "androidActionBarForegroundColor": "#ffffff",
+    "androidActionBarForegroundColorDark": "#0f172a",
     "iosSidebarBackgroundColor": "#f8f8f8",
     "iosSidebarBackgroundColorDark": "#202020",
     "iosSidebarFont": "Default",
-    "iosHeaderImage": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_ios.png",
-    "iosHeaderImageDark": "https://s3.amazonaws.com/gonativeio/app_files/zpxpjry/app_icon_ios.png",
+    "iosHeaderImage": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_ios.png",
+    "iosHeaderImageDark": "https://s3.amazonaws.com/gonativeio/app_files/lpwknmn/app_icon_ios.png",
     "iosSidebarTextColor": "#0E0D08",
     "iosSidebarTextColorDark": "#ffffff",
     "androidSidebarBackgroundColor": "#FFFFFF",
@@ -320,8 +343,8 @@
     "androidSidebarSeparatorColorDark": "#666666",
     "androidSidebarHighlightColor": "#1A100B",
     "androidSidebarHighlightColorDark": "#FFFFFF",
-    "androidShowLogoInSideBar": true,
-    "androidShowAppNameInSideBar": true,
+    "androidShowLogoInSideBar": false,
+    "androidShowAppNameInSideBar": false,
     "iosHideTabBarOnScroll": false,
     "androidHideTabBarOnScroll": false,
     "androidTabBarBackgroundColor": "#FFFFFF",
@@ -335,8 +358,8 @@
     "iosTabBarInactiveColor": "#A1A1A1",
     "iosTabBarInactiveColorDark": "#818181",
     "disableAnimations": false,
-    "navigationTitleImage": false,
-    "androidHideTitleInActionBar": false,
+    "navigationTitleImage": true,
+    "androidHideTitleInActionBar": true,
     "showNavigationBar": false,
     "showActionBar": false
   },
@@ -354,12 +377,13 @@
     }
   },
   "permissions": {
+    "iosBackgroundAudio": true,
     "usesGeolocation": false,
     "iosLocationUsageDescription": "",
     "iosCameraUsageDescription": "",
     "iosMicrophoneUsageDescription": "",
-    "enableWebRTCamera": false,
-    "enableWebRTCMicrophone": false,
+    "enableWebRTCamera": true,
+    "enableWebRTCMicrophone": true,
     "androidDownloadToPublicStorage": false,
     "iOSATTUserTrackingDescription": "",
     "iOSRequestATTConsentOnLoad": false
